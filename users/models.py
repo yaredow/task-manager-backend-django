@@ -17,6 +17,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    username = None
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -25,7 +26,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     # Define USERNAME_FIELD as email
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name"]
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
