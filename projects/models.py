@@ -1,5 +1,6 @@
 from django.db import models
 from cuid import cuid
+from users.models import CustomUser
 
 # Create your models here.
 
@@ -10,6 +11,9 @@ class Project(models.Model):
         max_length=36,
         default=cuid,
         editable=False,
+    )
+    user = models.ForeignKey(
+        CustomUser, related_name="projects", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=255)
     image = models.ImageField(
