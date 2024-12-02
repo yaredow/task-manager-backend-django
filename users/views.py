@@ -1,14 +1,17 @@
-from rest_framework.views import APIView
+from rest_framework import generics
+from .serializers import UserSerializer
+from .models import CustomUser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+
 
 # Create your views here.
 
 
-""" class DetailUserView(APIView):
-    permission_classes = [IsAuthenticated]
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
 
-    def get(self, request):
-        user = request.user
-        serializers = UserSerializer(user)
-        return Response(serializers.data) """
+
+class UserDetailView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
