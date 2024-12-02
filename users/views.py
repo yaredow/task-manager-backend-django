@@ -1,7 +1,7 @@
-from rest_framework import generics
-from .serializers import UserSerializer
-from .models import CustomUser
 from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer
+from rest_framework import generics
+from .models import CustomUser
 
 
 # Create your views here.
