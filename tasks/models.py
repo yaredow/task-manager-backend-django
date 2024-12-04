@@ -1,5 +1,8 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from cuid import cuid
+
+
 from projects.models import Project
 
 # Create your models here.
@@ -20,6 +23,12 @@ class Task(models.Model):
         default=cuid,
         editable=False,
     )
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    due_date = models.DateField(null=True, blank=True)
+    priority = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(10)]
+    )
     status = models.CharField(
         max_length=30,
         choices=TaskStatus.choices,
@@ -30,9 +39,6 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name="tasks",
     )
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    due_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
